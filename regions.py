@@ -27,10 +27,39 @@ def get_regions():
     return regions, time1
 
 
-if __name__ == "__main__":
-    regions = []
+def get_country(regions, time1):
+    
     my_regions = {}
     regions_dt = {'region':[], 'country':[], 'language':[], 'time':[]}
 
-    regions, time1= get_regions()
+    for reg in regions:
+        url = f"https://restcountries.eu/rest/v2/region/{reg}"
+        response = requests.request("GET", url)
+
+        time2= time1 + response.elapsed.total_seconds()
+
+        r = response.json()[0]
+        country=r['name']
+        language=r['languages'][0]['name']
+        lang_SHA1= hashlib.sha1(language.encode('utf-8')).hexdigest()
+
+        my_regions[reg]={country:{"language":language}}
+
+        regions_dt['region'].append(reg)
+        regions_dt['country'].append(country)
+        regions_dt['language'].append(lang_SHA1)
+        regions_dt['time'].append(time2)
+    
+    return my_regions, regions_dt
+
+
+if __name__ == "__main__":
+    regions = []
+    my_regions = {}
+    regions_dt = {}
+
+    regions, time1 = get_regions()
+    my_regions, regions_dt = get_country(regions, time1)
+
+
 
