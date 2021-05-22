@@ -1,0 +1,32 @@
+{
+    "Asia": {
+        "Afghanistan": {
+            "language": "Pashto"
+        }
+    },
+    "Europe": {
+        "\u00c5land Islands": {
+            "language": "Swedish"
+        }
+    },
+    "Africa": {
+        "Algeria": {
+            "language": "Arabic"
+        }
+    },
+    "Oceania": {
+        "American Samoa": {
+            "language": "English"
+        }
+    },
+    "Americas": {
+        "Anguilla": {
+            "language": "English"
+        }
+    },
+    "Polar": {
+        "Antarctica": {
+            "language": "English"
+        }
+    }
+}

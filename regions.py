@@ -59,11 +59,8 @@ def get_dataframe(regions_dt):
 
     data = pandas.DataFrame()
 
-
     data=pandas.DataFrame.from_dict(regions_dt)
     data.to_sql(name='data', con=cnx, if_exists='replace')
-    
-    timer = data["time"]
 
     cnx.close()
     print(data)
@@ -72,15 +69,15 @@ def get_dataframe(regions_dt):
     print("{:<10} {:<10} {:<10} {:<10}".format(round(data["time"].max(),4), round(data["time"].min(),4), round(data["time"].mean(),4), round(data["time"].sum(),4)))
 
 
+def get_json(my_regions):
+    f = open("data.json", "w")
+    f.write(json.dumps(my_regions, indent=4))
+    f.close()
 
 
 if __name__ == "__main__":
-    regions = []
-    my_regions = {}
-    regions_dt = {}
 
     regions, time1 = get_regions()
     my_regions, regions_dt = get_country(regions, time1)
     get_dataframe(regions_dt)
-
-
+    get_json(my_regions)
