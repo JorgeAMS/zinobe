@@ -53,6 +53,27 @@ def get_country(regions, time1):
     return my_regions, regions_dt
 
 
+def get_dataframe(regions_dt):
+        
+    cnx = sqlite3.connect('regions.db')
+
+    data = pandas.DataFrame()
+
+
+    data=pandas.DataFrame.from_dict(regions_dt)
+    data.to_sql(name='data', con=cnx, if_exists='replace')
+    
+    timer = data["time"]
+
+    cnx.close()
+    print(data)
+
+    print("\n\n"+"{:<10} {:<10} {:<10} {:<10}".format("Max time", "Min time", "Average", "Total"))
+    print("{:<10} {:<10} {:<10} {:<10}".format(round(data["time"].max(),4), round(data["time"].min(),4), round(data["time"].mean(),4), round(data["time"].sum(),4)))
+
+
+
+
 if __name__ == "__main__":
     regions = []
     my_regions = {}
@@ -60,6 +81,6 @@ if __name__ == "__main__":
 
     regions, time1 = get_regions()
     my_regions, regions_dt = get_country(regions, time1)
-
+    get_dataframe(regions_dt)
 
 
